@@ -9,9 +9,9 @@ int main()
 	int n = 100;
 
 	// insert the keys into the hash table 
-	HashTable h(10); // 7 is count of buckets in 
-				// hash table 
-	for (int i = 0; i < n; i++)
+	HashTable<int, int> h(10); 
+
+  for (int i = 0; i < n; i++)
 		h.insertItem(i, i);
 
 

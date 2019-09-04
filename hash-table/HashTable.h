@@ -1,9 +1,8 @@
 #pragma once
 
-#ifndef HASHTABLE
-#define HASHTABLE
+#include "HashNode.h"
 
-template <typename K, typename V>
+template <class K, class V>
 class HashTable
 {
 	int size; // No. of buckets 
@@ -20,8 +19,7 @@ public:
 	void deleteItem(K key);
 
 	// hash function to map values to key 
-	int hashFunction(V key);
+	int hashFunction(K key);
 
 	void displayHash();
 };
-#endif

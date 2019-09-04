@@ -1,7 +1,4 @@
-//#pragma once
-
-#ifndef HASHNODE
-#define HASHNODE
+#pragma once
 
 template<typename K, typename V>
 class HashNode {
@@ -13,4 +10,3 @@ public:
 	HashNode(K key, V val);
 };
 
-#endif

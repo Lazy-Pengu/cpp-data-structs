@@ -1,23 +1,28 @@
-#include "HashTable.h"
 #include "HashNode.h"
+#include "HashTable.h"
+#include <cstddef>
+#include<iostream> 
 
+using namespace std;
 
-HashTable::HashTable(int b)
+template <class K, class V>
+HashTable<K,V>::HashTable(int b)
 {
 	this->size = b;
-	table = new HashNode*[size];
+	this->table = new HashNode<K, V>*[size];
 
 	for (int i = 0; i < size; i++) {
-		table[i] = NULL;
+		this->table[i] = NULL;
 	}
 }
 
-void HashTable::insertItem(int key, int val)
+template <class K, class V>
+void HashTable<K,V>::insertItem(K key, V val)
 {
 	int index = hashFunction(key);
 	
-	HashNode* prev = NULL;
-	HashNode* curr = table[index];
+	HashNode<K,V>* prev = NULL;
+	HashNode<K,V>* curr = this->table[index];
 
 	while (curr != NULL && curr->key != key) {
 		prev = curr;
@@ -25,10 +30,10 @@ void HashTable::insertItem(int key, int val)
 	}
 
 	if (curr == NULL) {
-		curr = new HashNode(key, val);
+		curr = new HashNode<K,V>(key, val);
 
 		if (prev == NULL) {
-			table[index] = curr;
+			this->table[index] = curr;
 		}
 		else {
 			prev->next = curr;
@@ -39,13 +44,14 @@ void HashTable::insertItem(int key, int val)
 	}
 }
 
-void HashTable::deleteItem(int key)
+template <class K, class V>
+void HashTable<K,V>::deleteItem(K key)
 {
 	// get the hash index of key 
 	int index = hashFunction(key);
 
-	HashNode* prev = NULL;
-	HashNode* curr = table[index];
+	HashNode<K,V>* prev = NULL;
+	HashNode<K,V>* curr = this->table[index];
 
 	while (curr != NULL && curr->key != key) {
 		prev = curr;
@@ -58,20 +64,22 @@ void HashTable::deleteItem(int key)
 		delete curr;
 	}
 	else if(prev == NULL && curr != NULL){
-		table[index] = curr->next;
+		this->table[index] = curr->next;
 	}
 
 }
 
-int HashTable::hashFunction(int key) {
+template <class K, class V>
+int HashTable<K,V>::hashFunction(K key) {
 	return (key % size);
 }
 
-// function to display hash table 
-void HashTable::displayHash() {
+// function to display hash this->table 
+template <class K, class V>
+void HashTable<K,V>::displayHash() {
 	for (int i = 0; i < size; i++) {
 		cout << i;
-		HashNode* cur = table[i];
+		HashNode<K,V>* cur = this->table[i];
 
 		while (cur != NULL) {
 			cout << "---> (" << cur->key << " , " << cur->val << ")";
