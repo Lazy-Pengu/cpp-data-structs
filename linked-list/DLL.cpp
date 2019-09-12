@@ -10,6 +10,7 @@ class Node {
   public:
     V data;
     Node<V>* next;
+    Node<V>* prev;
 
     Node(V d);
 
@@ -36,14 +37,10 @@ class LinkedList {
 };
 
 template <typename V>
-Node<V>::Node(V d) : data(d) {
-  next = NULL;
-}
+Node<V>::Node(V d) : next(), prev(), data(d) {}
 
 template <typename V>
-LinkedList<V>::LinkedList(): size(0) {
-  head = NULL;
-}
+LinkedList<V>::LinkedList(): head(), size(0) {}
 
 template <typename V>
 LinkedList<V>::~LinkedList() {
@@ -79,6 +76,7 @@ void LinkedList<V>::insert(V d) {
   }
 
   cur->next = entry;
+  entry->prev = cur;
   size++;
 
 }
@@ -122,6 +120,7 @@ void LinkedList<V>::remove(int index) {
     delete prev;
   } else {
     prev->next = curr->next;
+    curr->next->prev = curr->prev;
 
     delete curr;
   }
